@@ -1,6 +1,6 @@
 package by.innowise.task.first;
 
-public interface MyList<T> {
+interface MyList<T> {
     int size();
     void addFirst(T element);
     void addLast(T element);

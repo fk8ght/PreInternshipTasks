@@ -2,12 +2,12 @@ package by.innowise.task.first;
 
 import java.util.NoSuchElementException;
 
-public class MyLinkedList<T> implements MyList<T> {
+class MyLinkedList<T> implements MyList<T> {
     private MyNode<T> head;
     private MyNode<T> tail;
     private int size;
 
-    public MyLinkedList(){
+    MyLinkedList(){
         head = null;
         tail = null;
         size = 0;
