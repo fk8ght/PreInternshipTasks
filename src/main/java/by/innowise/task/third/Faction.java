@@ -10,13 +10,15 @@ import java.util.concurrent.Callable;
 class Faction implements Callable<Integer> {
     private final String name;
     private final Factory factory;
+    private final RobotBuilder builder;
     private final Map<PartType, Integer> privateInventory;
     @Getter
     private int totalRobots;
 
-    Faction(String name, Factory factory){
+    Faction(String name, Factory factory, RobotBuilder builder){
         this.name = name;
         this.factory = factory;
+        this.builder = builder;
 
         privateInventory = new HashMap<>();
         for(int i = 0; i < 4; i++){
@@ -29,30 +31,17 @@ class Faction implements Callable<Integer> {
         Random random = new Random();
 
         for(int i = 0; i < 5; i++) {
-            //вместо рандома логику надо додумать и поменять логику если не находит
+            //вместо рандома логику надо додумать
             PartType typeToGrab = PartType.values()[random.nextInt(4)];
             if(factory.tryGrab(typeToGrab)){
                 privateInventory.put(typeToGrab, privateInventory.get(typeToGrab) + 1);
             }
         }
 
-        while(tryCreate()){
+        while(builder.tryCreate(privateInventory)){
             totalRobots++;
         }
 
         return totalRobots;
-    }
-
-    private boolean tryCreate(){
-        if(privateInventory.get(PartType.HAND) > 2 && privateInventory.get(PartType.FEET) > 2
-                && privateInventory.get(PartType.HEAD) > 1 && privateInventory.get(PartType.TORSO) > 1){
-            privateInventory.put(PartType.HAND, privateInventory.get(PartType.HAND) - 2);
-            privateInventory.put(PartType.FEET, privateInventory.get(PartType.FEET) - 2);
-            privateInventory.put(PartType.HEAD, privateInventory.get(PartType.HEAD) - 1);
-            privateInventory.put(PartType.TORSO, privateInventory.get(PartType.TORSO) - 1);
-            return true;
-        } else{
-            return false;
-        }
     }
 }
