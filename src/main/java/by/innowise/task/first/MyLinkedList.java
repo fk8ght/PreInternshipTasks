@@ -74,11 +74,17 @@ class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public T getFirst(){
+        if(size == 0){
+            throw new NoSuchElementException();
+        }
         return head.getContent();
     }
 
     @Override
     public T getLast(){
+        if(size == 0){
+            throw new NoSuchElementException();
+        }
         return tail.getContent();
     }
 
