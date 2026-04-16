@@ -1,5 +1,8 @@
 package by.innowise.task.fifth.http;
 
+import lombok.Getter;
+
+@Getter
 public class HttpResponse {
     private int status;
     private byte[] body;
